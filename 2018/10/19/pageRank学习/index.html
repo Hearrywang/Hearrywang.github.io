@@ -1,0 +1,443 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Hearrywang">
+  
+  
+  
+  
+    <meta name="description" content="总结于这篇博客:    https://www.cnblogs.com/futurehau/p/6062769.htmlPageRank:
+是对搜索引擎的搜索网页进行排序的算法 
+它的思想是模拟一个悠闲的上网者，上网者首先随机选择一个网页打开，然后在这个网页上呆了几分钟后，跳转到该网页所指向的链接，这样无所事事、漫无目的地在网页上跳来跳去，PageRank就是估计这个悠闲的上网者分布在各个网...">
+  
+  <title>pageRank学习 [ Blog ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2018/10/19/qa/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        qa
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2018/10/15/learn/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        学习记录
+      </div>
+    </div>
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/head.jpg"/>
+          <div id="homelink">Blog</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">Home</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">Archives</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">Tags</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">Categories</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">About</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/Hearrywang">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>pageRank学习</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-10-19</span>
+      
+        <span id = "post-title-updated">Updated at 2018-10-19</span>
+      
+      
+      <span id = "post-title-categories">Category
+      
+      
+        
+        
+        <a href="/categories/算法/">算法</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/自然语言处理/">自然语言处理</a>
+      
+      </span>
+      
+    </p>
+    
+    <h1 id="总结于这篇博客-https-www-cnblogs-com-futurehau-p-6062769-html"><a href="#总结于这篇博客-https-www-cnblogs-com-futurehau-p-6062769-html" class="headerlink" title="总结于这篇博客:    https://www.cnblogs.com/futurehau/p/6062769.html"></a>总结于这篇博客:    <a href="https://www.cnblogs.com/futurehau/p/6062769.html" target="_blank" rel="noopener">https://www.cnblogs.com/futurehau/p/6062769.html</a></h1><h1 id="PageRank"><a href="#PageRank" class="headerlink" title="PageRank:"></a>PageRank:</h1><ul>
+<li>是对搜索引擎的搜索网页进行排序的算法 </li>
+<li>它的思想是模拟一个悠闲的上网者，上网者首先随机选择一个网页打开，然后在这个网页上呆了几分钟后，跳转到该网页所指向的链接，这样无所事事、漫无目的地在网页上跳来跳去，PageRank就是估计这个悠闲的上网者分布在各个网页上的概率。</li>
+</ul>
+<h1 id="PageRank背后的两个基本假设："><a href="#PageRank背后的两个基本假设：" class="headerlink" title="PageRank背后的两个基本假设："></a>PageRank背后的两个基本假设：</h1><ul>
+<li>数量假设：更重要的网页更可能被更多的网页链接到。</li>
+<li>质量假设：有更高的PageRank的网页将会传递更高的权重。</li>
+</ul>
+<h1 id="主要结构"><a href="#主要结构" class="headerlink" title="主要结构"></a>主要结构</h1><ul>
+<li>转移矩阵</li>
+<li>PageRank Matrix PR0</li>
+</ul>
+<h1 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h1><ul>
+<li><center><br>  <img src="1.png" width="80%" height="75%"><br>  Figure 1<br></center>
+
+</li>
+</ul>
+<h1 id="两个基本问题"><a href="#两个基本问题" class="headerlink" title="两个基本问题"></a>两个基本问题</h1><ul>
+<li>Dead Ends 终止点问题(有些网页不存在指向其他网页的链接，那么多次迭代之后导致所有网页的PageRank都变为0)</li>
+<li>Spider traps 陷阱问题(有些网页只存在指向自己的链接,那么多次迭代之后，这将导致这个网页的PageRank为1，而其他网页的PageRank为0)</li>
+</ul>
+<h1 id="解决终止点问题和陷阱问题"><a href="#解决终止点问题和陷阱问题" class="headerlink" title="解决终止点问题和陷阱问题"></a>解决终止点问题和陷阱问题</h1><ul>
+<li>我们现在回到开始是所说的那个无聊的上网者，假如人类遇到这个问题的话，采取的解决办法就是关闭当前网页，重新打开一个网页。所以为了避免上述两个问题，我们呢对上边的转移公式做一个小小的修正。（有概率随机打开一个网页，这时候打开所有网页的概率均等）</li>
+<li><center><br>  <img src="2.png" width="80%" height="75%"><br>  Figure 2<br></center>
+
+</li>
+</ul>
+<h1 id="Map-Reduce计算PageRank"><a href="#Map-Reduce计算PageRank" class="headerlink" title="Map-Reduce计算PageRank"></a>Map-Reduce计算PageRank</h1><ul>
+<li>输入数据</li>
+<li><center><br>  <img src="3.png" width="80%" height="75%"><br>  Figure 3<br></center></li>
+<li>矩阵相乘</li>
+<li>接下来就设计到Map-Reduce处理矩阵的乘法操作，我们不能直接来进行两个矩阵的乘法操作。因为如果这样做的话，我们需要转移矩阵的一行数据都来齐之后才可进行，这就需要我们 in-memory 存储整个矩阵，很容易造成out of mempry 而且速度还慢。所以我们的处理方法是用Traverse MAtrix的每一列和PR相成，最后把所有元素相加即可。这样我们就不需要in-memery那么多东西。其实对于一个网页A，可以思考为，你A B C D分别可以为我贡献多少，然后把ABCD的贡献全都加起来，就是A的PageRank。矩阵直接相乘和我们的相乘相加的方法的其别就是，直接相乘是计算A的PageRank 的时候，把所以对A有贡献的网页都拿来，计算出贡献加起来作为A的PageRank;相乘相加是首先计算出A可以为ABCD贡献多少，然后B可以为ABCD贡献多少，然后C..D..。最后再把这些值加起来，分别作为ABCD的PageRank。</li>
+<li>图解</li>
+<li><center><br>     <img src="4.png" width="80%" height="75%"><br>     Figure 4<br>   </center></li>
+<li>手画图   <center><br>     <img src="5.png" width="80%" height="75%"><br>     Figure 5<br>   </center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#总结于这篇博客-https-www-cnblogs-com-futurehau-p-6062769-html"><span class="toc-text">总结于这篇博客:    https://www.cnblogs.com/futurehau/p/6062769.html</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PageRank"><span class="toc-text">PageRank:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PageRank背后的两个基本假设："><span class="toc-text">PageRank背后的两个基本假设：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#主要结构"><span class="toc-text">主要结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#图解"><span class="toc-text">图解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#两个基本问题"><span class="toc-text">两个基本问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决终止点问题和陷阱问题"><span class="toc-text">解决终止点问题和陷阱问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Map-Reduce计算PageRank"><span class="toc-text">Map-Reduce计算PageRank</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2018/10/19/qa/" class="prev">&larr; Prev post qa</a>
+  
+
+  
+
+  
+    <a href="/2018/10/15/learn/" class="next">Next post 学习记录 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Hearrywang using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/head.jpg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/Hearrywang">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="null">
+        
+          Coding.NET
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="null">
+        
+          Twitter
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://weibo.com/3759016451/profile?topnav=1&wvr=6">
+        
+          <i class="icon iconfont weibo">&#xe602;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="null">
+        
+          DouBan
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+

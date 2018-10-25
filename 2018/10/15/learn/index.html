@@ -38,6 +38,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+    <div class="item prev">
+      <a href="/2018/10/19/pageRank学习/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        pageRank学习
+      </div>
+    </div>
+  
   
     <div class="item next">
       <a href="/2018/10/14/recomandWebSite/">
@@ -123,7 +132,7 @@
     <p class="page-title-sub">
       <span id = "post-title-date">Created at 2018-10-15</span>
       
-        <span id = "post-title-updated">Updated at 2018-10-16</span>
+        <span id = "post-title-updated">Updated at 2018-10-25</span>
       
       
       <span id = "post-title-categories">Category
@@ -187,27 +196,34 @@
 <p>###奇异值分解(SVD)<br>    <em><div align="center"><img src="2.png" alt="TF-IDF">    
     </div></em><div align="center"><img src="3.png" alt="TF-IDF"><br>    *注上图中等号右边的左右矩阵分别代表在同一个语义空间不同document之间的相关性和同意语义空间不同term之间的相关性。中间矩阵则是语义空间中的正交基。</div></p>
 <h3 id="LSI文本模型"><a href="#LSI文本模型" class="headerlink" title="LSI文本模型"></a>LSI文本模型</h3><ul>
-<li>LSA(latent semantic analysis)潜在语义分析，也被称为LSI(latent semantic index) 该方法和传统向量空间模型(vector space model)一样使用向量来表示词(terms)和文档(documents)，并通过向量间的关系(如夹角)来判断词及文档间的关系；而不同的是，LSA将词和文档映射到潜在语义空间，从而去除了原始向量空间中的一些“噪音”，提高了信息检索的精确度。LSA的基本思想就是把高维的文档降到低维空间，那个空间被称为潜在语义空间。这个映射必须是严格线性的而且是基于共现表（就是那个矩阵啦）的奇异值分解<ul>
-<li>LDA好文    * <a href="https://zhuanlan.zhihu.com/p/29932017" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/29932017</a><pre><code>* https://zhuanlan.zhihu.com/p/46617465
-* https://blog.csdn.net/pipisorry/article/details/42649657
-* https://zhuanlan.zhihu.com/p/24555092
-</code></pre></li>
+<li><p>LSA(latent semantic analysis)潜在语义分析，也被称为LSI(latent semantic index) 该方法和传统向量空间模型(vector space model)一样使用向量来表示词(terms)和文档(documents)，并通过向量间的关系(如夹角)来判断词及文档间的关系；而不同的是，LSA将词和文档映射到潜在语义空间，从而去除了原始向量空间中的一些“噪音”，提高了信息检索的精确度。LSA的基本思想就是把高维的文档降到低维空间，那个空间被称为潜在语义空间。这个映射必须是严格线性的而且是基于共现表（就是那个矩阵啦）的奇异值分解</p>
+<ul>
+<li>LDA好文    </li>
+<li><a href="https://zhuanlan.zhihu.com/p/29932017" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/29932017</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/46617465" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46617465</a></li>
+<li><a href="https://blog.csdn.net/pipisorry/article/details/42649657" target="_blank" rel="noopener">https://blog.csdn.net/pipisorry/article/details/42649657</a></li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/24555092" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24555092</a></p>
+</li>
+<li><p>[翻译整理]STACKOVERFLOW PYTHON 百问: <a href="http://www.wklken.me/posts/2013/07/20/python-stackoverflow-vote-top.html" target="_blank" rel="noopener">http://www.wklken.me/posts/2013/07/20/python-stackoverflow-vote-top.html</a></p>
+</li>
 </ul>
 </li>
 </ul>
-
+<h3 id="LDA知乎详解-赞赞赞-https-zhuanlan-zhihu-com-p-31470216"><a href="#LDA知乎详解-赞赞赞-https-zhuanlan-zhihu-com-p-31470216" class="headerlink" title="LDA知乎详解 赞赞赞 https://zhuanlan.zhihu.com/p/31470216"></a>LDA知乎详解 赞赞赞 <a href="https://zhuanlan.zhihu.com/p/31470216" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31470216</a></h3>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
     <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#早期文本模型简介"><span class="toc-text">早期文本模型简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TF-IDF文本模型"><span class="toc-text">TF-IDF文本模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量空间模型-Vector-Space-Model"><span class="toc-text">向量空间模型(Vector Space Model)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSI文本模型"><span class="toc-text">LSI文本模型</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#早期文本模型简介"><span class="toc-text">早期文本模型简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TF-IDF文本模型"><span class="toc-text">TF-IDF文本模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#向量空间模型-Vector-Space-Model"><span class="toc-text">向量空间模型(Vector Space Model)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSI文本模型"><span class="toc-text">LSI文本模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LDA知乎详解-赞赞赞-https-zhuanlan-zhihu-com-p-31470216"><span class="toc-text">LDA知乎详解 赞赞赞 https://zhuanlan.zhihu.com/p/31470216</span></a></li></ol></li></ol></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
+  
+    <a href="/2018/10/19/pageRank学习/" class="prev">&larr; Prev post pageRank学习</a>
   
 
   
