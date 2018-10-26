@@ -142,9 +142,9 @@ PostId intPost...">
   <article id="post">
     <h1>qa</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">Created at 2018-10-19</span>
+      <span id = "post-title-date">撰写于 2018-10-19</span>
       
-        <span id = "post-title-updated">Updated at 2018-10-19</span>
+        <span id = "post-title-updated">修改于 2018-10-26</span>
       
       
       
@@ -168,27 +168,67 @@ PostId intPost...">
 <h3 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h3><p>Id int<br>PostId int<br>Score int<br>Text nvarchar(600)<br>CreationDate datetime<br>UserDisplayName nvarchar(30)<br>UserId int</p>
 <h4 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h4><p>Id int<br>TagName nvarchar(35)<br>Count int<br>ExcerptPostId int<br>WikiPostId int </p>
 <p><a href="https://data.stackexchange.com/stackoverflow/query/fork/6772" target="_blank" rel="noopener">https://data.stackexchange.com/stackoverflow/query/fork/6772</a></p>
+<h1 id="参考-http-skyhigh233-com-blog-2018-04-26-cqa-intro"><a href="#参考-http-skyhigh233-com-blog-2018-04-26-cqa-intro" class="headerlink" title="参考 http://skyhigh233.com/blog/2018/04/26/cqa-intro/"></a>参考 <a href="http://skyhigh233.com/blog/2018/04/26/cqa-intro/" target="_blank" rel="noopener">http://skyhigh233.com/blog/2018/04/26/cqa-intro/</a></h1><h1 id="qa数据集：-纯自然语言处理-TrecQA-WikiQA-InsuranceQA"><a href="#qa数据集：-纯自然语言处理-TrecQA-WikiQA-InsuranceQA" class="headerlink" title="qa数据集： 纯自然语言处理 TrecQA/WikiQA/InsuranceQA"></a>qa数据集： 纯自然语言处理 TrecQA/WikiQA/InsuranceQA</h1><h1 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h1><ul>
+<li>MRR(mean reciprocal rank)</li>
+<li><p>这个指标只考虑与当前问题相关的所有答案中,rank最靠前的那个答案,数据集的MRR就是每个样本的该答案排序的倒数的和的均值,一般用于问题与答案是否匹配的二状态问题中。假设对于问题q1答案排序为a1,a2,a3，与问题q1相关的答案为a3；对于与问题q2答案排序为a4,a5,a6,a7，与问题q2相关的答案为a5和a6<br>MRR=(1/3)/1<br>MRR=(1/2 + 1/3)/2</p>
+<center><br>  <img src="1.png" width="80%" height="75%"><br>  Figure 1<br></center>
+</li>
+<li><p>MAP(mean average precision)<br>MAP也是衡量问题与答案是否匹配（二状态）的一个指标。与MRR不同的是，MAP考虑所有与问题相关的答案的排序。假设q1对应相关的答案排名是1，3，6（共三个答案与问题q1相关，其余答案不相关），那么对于q1，可以算出它的average precision为ap1=(1/1+2/3+3/6)/3。对于q2，与之相关的答案排名是2，5，7，8（共五个答案与q2相关，有一个没有被召回），那么对于q2，ap2=(1/2+2/5+3/7+4/8+0)/5。那么这个排序算法的MAP就是MAP=(ap1+ap2)/2，具体公式可以写成如下：</p>
+<center><br>  <img src="2.png" width="80%" height="75%"><br>  Figure 2<br></center>
+</li>
+<li><p>NDCG(Normalized Discounted Cumulative Gain)</p>
+</li>
+<li>NDCG指标可以用于不同打分的答案，也就是不局限于二状态的情况。一个问题和不同答案的相关度可以用不同分数来表示。NDCG其实可以由DCG和iDCG得到。iDCG表示最理想排序情况下的DCG分数。假设我们只考虑n个文档排序中的前K个文档，那么：</li>
+<li>图  <center><br>      <img src="3.png" width="80%" height="75%"><br>      Figure 3<br>    </center></li>
+<li>其中，reli表示当前排序i的文档与问题的相关度，REL表示按照相关度排序的列表。假设对于一个问题Q，得到排序文档D1,D2,D3，而每个文档与Q的相关度分别为3，4，2。那么我们可以计算：</li>
+<li>图    <center><br>      <img src="4.png" width="80%" height="75%"><br>      Figure 4<br>  </center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ul>
 
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
-    <h2>Table of Content</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#实验数据：StackExchange"><span class="toc-text">实验数据：StackExchange</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#广义推荐"><span class="toc-text">广义推荐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基于用户"><span class="toc-text">基于用户</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#确定你与用户共同回答了多少问题"><span class="toc-text">确定你与用户共同回答了多少问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基于产品"><span class="toc-text">基于产品</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Post"><span class="toc-text">Post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Users"><span class="toc-text">Users</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comments"><span class="toc-text">Comments</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tags"><span class="toc-text">Tags</span></a></li></ol></li></ol></li></ol></li></ol>
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#实验数据：StackExchange"><span class="toc-text">实验数据：StackExchange</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#广义推荐"><span class="toc-text">广义推荐</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基于用户"><span class="toc-text">基于用户</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#确定你与用户共同回答了多少问题"><span class="toc-text">确定你与用户共同回答了多少问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基于产品"><span class="toc-text">基于产品</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Post"><span class="toc-text">Post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Users"><span class="toc-text">Users</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comments"><span class="toc-text">Comments</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tags"><span class="toc-text">Tags</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考-http-skyhigh233-com-blog-2018-04-26-cqa-intro"><span class="toc-text">参考 http://skyhigh233.com/blog/2018/04/26/cqa-intro/</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#qa数据集：-纯自然语言处理-TrecQA-WikiQA-InsuranceQA"><span class="toc-text">qa数据集： 纯自然语言处理 TrecQA/WikiQA/InsuranceQA</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#评价指标"><span class="toc-text">评价指标</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2018/10/22/metrics/" class="prev">&larr; Prev post metrics</a>
+    <a href="/2018/10/22/metrics/" class="prev">&larr; 上一篇 metrics</a>
   
 
   
 
   
-    <a href="/2018/10/19/pageRank学习/" class="next">Next post pageRank学习 &rarr;</a>
+    <a href="/2018/10/19/pageRank学习/" class="next">下一篇 pageRank学习 &rarr;</a>
   
 </nav>
 
