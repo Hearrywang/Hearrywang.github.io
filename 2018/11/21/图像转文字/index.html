@@ -1,8 +1,6 @@
 
 
 
-  
-
 
 
 
@@ -18,9 +16,9 @@
   
   
   
-    <meta name="description" content="">
+    <meta name="description" content="#https://mp.weixin.qq.com/s?__biz=MzUxOTgxMjkwNA==&amp;mid=2247485346&amp;idx=1&amp;sn=e05ad3c037e778b03cd62b33864efb36&amp;chksm=f9f2a5e5ce852cf37a2203bbb33a704c71cbc36c2ca1bb1d49bd51fee71ecc975a3...">
   
-  <title>Tag: reduction [ Blog ]</title>
+  <title>图像转文字 [ Blog ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -39,6 +37,15 @@
 <body>
 <div class="side-navigate hide-area">
   
+  
+    <div class="item next">
+      <a href="/2018/11/03/概率/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        概率
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -71,7 +78,7 @@
           </li>
         
           
-            <li class="active">
+            <li>
           
             <a href="/tags">Tags</a>
             
@@ -110,129 +117,75 @@
     <div id="content-inner">
       
       
-  <div id="tag">
-    <h1>reduction</h1>
-    
+  <article id="post">
+    <h1>图像转文字</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2018-11-21</span>
+      
+        <span id = "post-title-updated">Updated at 2018-11-21</span>
+      
+      
+      
+      <span id = "post-title-tags">
+      Tag
       
       
         
-      
-      
-    
-      
-      
         
+        <a href="/tags/杂/">杂</a>
       
+      </span>
       
+    </p>
     
-      
-      
-        
-          
-        
-      
-      
-      <div class="post-title-item">
-  
-  <a href="/2018/10/11/article-title/">
-  
-    article title
-  
-  </a>
-  <p class="page-title-sub">
-    <span id = "post-title-date">10-11</span>
-    
-    <span id = "post-title-categories">Category
-    
-    
-      
-      
-      <a href="/categories/myself-introduction/">myself introduction</a>
-    
-    </span>
-    
-    
-    <span id = "post-title-tags">
-    Tag
-    
-    
-      
-      
-      <a href="/tags/reduction/">reduction</a>
-    
-    </span>
-    
-    
-      <br>
-      
-      
-    
-  </p>
-  
-</div>
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-        
-      
-      
-    
-      
-      
-      
+    <p>#<a href="https://mp.weixin.qq.com/s?__biz=MzUxOTgxMjkwNA==&amp;mid=2247485346&amp;idx=1&amp;sn=e05ad3c037e778b03cd62b33864efb36&amp;chksm=f9f2a5e5ce852cf37a2203bbb33a704c71cbc36c2ca1bb1d49bd51fee71ecc975a33658f74a2&amp;mpshare=1&amp;scene=23&amp;srcid=1121PO7se4H9LYBLbJM84MEc#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzUxOTgxMjkwNA==&amp;mid=2247485346&amp;idx=1&amp;sn=e05ad3c037e778b03cd62b33864efb36&amp;chksm=f9f2a5e5ce852cf37a2203bbb33a704c71cbc36c2ca1bb1d49bd51fee71ecc975a33658f74a2&amp;mpshare=1&amp;scene=23&amp;srcid=1121PO7se4H9LYBLbJM84MEc#rd</a></p>
+<p>def convert(img):<br>    ascii_char=list(“$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~            &lt;&gt;i!lI;:,\”^`’.”)</p>
+<pre><code>#字符长度
+length=len(ascii_char)
+img=Image.open(img)
+(width,height)=img.size
+#对图像进行缩小
+img=img.resize((int(width*0.16),int(height*0.08)))
+#转为灰度图像
+img=img.convert(&apos;L&apos;)
+txt=&quot;&quot;
+for i in range(img.size[1]):
+    for j in range(img.size[0]):
+        #获取每个坐标像素点的灰度
+        gray=img.getpixel((j,i))
+        #获取对应坐标的字符值
+        unit=256.0 / length
+        txt += ascii_char[int(gray / unit)]
+    txt +=&apos;\n&apos;
+return  txt
+</code></pre><p>#传入需要转化 的原始图片<br>txt=convert(‘4.png’)</p>
+<p>#把转化后的字符存入txt文件<br>f=open(‘convert4.txt’,’w’)<br>f.write(txt)<br>f.close()</p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
     
   </div>
+</div>
 
   
+<nav id="pagination">
+  
+
+  
+
+  
+    <a href="/2018/11/03/概率/" class="next">Next post 概率 &rarr;</a>
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
 
       
       
@@ -364,6 +317,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
